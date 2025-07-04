@@ -10,7 +10,7 @@ namespace TicTacToe.UI
     {
         private string[] board = new string[9];
 
-        public Result PlaceSymbol(int position, PlayerSymbols playerSymbol)
+        private void PrepareBoard()
         {
             for (int i = 0; i < board.Length; i++)
             {
@@ -19,16 +19,21 @@ namespace TicTacToe.UI
                     board[i] = " ";
                 }
             }
+        }
 
-            if (board[position - 1] != " ")
-            {
-                Console.WriteLine("You can't place your symbol on a non-empty space.");
-                return Result.InvalidOverlap;
-            }
-            else if (position < 1 || position > 9)
+        public Result PlaceSymbol(int position, PlayerSymbols playerSymbol)
+        {
+            PrepareBoard();
+
+            if (position < 1 || position > 9)
             {
                 Console.WriteLine("That position is off the grid, please choose an empty space between 1 and 9.");
                 return Result.InvalidOffGrid;
+            }
+            else if (board[position - 1] != " ")
+            {
+                Console.WriteLine("You can't place your symbol on a non-empty space.");
+                return Result.InvalidOverlap;
             }
             else
             {
@@ -57,6 +62,32 @@ namespace TicTacToe.UI
             {
                 return PlayerSymbols.X;
             }
+        }
+
+        public Result determineWinner()
+        {
+            if ((board[0] == "X" && board[1] == "X" && board[2] == "X") ||
+                (board[3] == "X" && board[4] == "X" && board[5] == "X") ||
+                (board[6] == "X" && board[7] == "X" && board[8] == "X") ||
+                (board[0] == "X" && board[4] == "X" && board[8] == "X") ||
+                (board[2] == "X" && board[4] == "X" && board[6] == "X")) 
+            {
+                return Result.XWins;
+            }
+            else if((board[0] == "O" && board[1] == "O" && board[2] == "O") ||
+                (board[3] == "O" && board[4] == "O" && board[5] == "O") ||
+                (board[6] == "O" && board[7] == "O" && board[8] == "O") ||
+                (board[0] == "O" && board[4] == "O" && board[8] == "O") ||
+                (board[2] == "O" && board[4] == "O" && board[6] == "O"))
+            {
+                return Result.OWins;
+            }
+            else if(!board.Contains(" "))
+            {
+                return Result.Draw;
+            }
+
+            return Result.SymbolPlaced;
         }
     }
 }

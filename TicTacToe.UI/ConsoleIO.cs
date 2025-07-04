@@ -17,14 +17,11 @@ namespace TicTacToe.UI
                 Console.Write($"\n{symbol}, choose a position: ");
                 if(int.TryParse(Console.ReadLine(), out playerChoice)) 
                 {
-                    if (playerChoice >= 1 && playerChoice <= 9)
-                    {
-                        return playerChoice;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nPlease choose a valid position between 1 and 9.");
-                    }
+                    return playerChoice;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid numeric value.");
                 }
             } while (true);
         }

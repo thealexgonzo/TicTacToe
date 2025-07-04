@@ -22,6 +22,8 @@ namespace TicTacToe.UI
             
             ConsoleIO.DisplayGridPositions();
 
+            Result winner;
+
             do
             {
 
@@ -37,7 +39,11 @@ namespace TicTacToe.UI
 
                 manager.DisplayRoundGrid();
 
-            } while (true);
+                winner = manager.determineWinner();
+
+            } while (winner == Result.SymbolPlaced);
+
+            Console.WriteLine($"{winner}");
         }
     }
 }

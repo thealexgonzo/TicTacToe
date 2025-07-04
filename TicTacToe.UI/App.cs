@@ -11,39 +11,45 @@ namespace TicTacToe.UI
     {
         public static void Run()
         {
-            GameManager manager = new GameManager();
-
-            Console.WriteLine("Welcome to Tic-Tac-Toe!");
-
-            IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 ({PlayerSymbols.X}) - Human or Computer? (H/C): ");
-            IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 ({PlayerSymbols.O}) - Human or Computer? (H/C): ");
-
-            PlayerSymbols currentPlayer = ConsoleIO.FirstPlayer();
-            
-            ConsoleIO.DisplayGridPositions();
-
-            Result winner;
-
             do
             {
+                Console.Clear();
 
-                Result round;
+                GameManager manager = new GameManager();
+
+                Console.WriteLine("Welcome to Tic-Tac-Toe!");
+
+                IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 ({PlayerSymbols.X}) - Human or Computer? (H/C): ");
+                IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 ({PlayerSymbols.O}) - Human or Computer? (H/C): ");
+
+                PlayerSymbols currentPlayer = ConsoleIO.FirstPlayer();
+
+                ConsoleIO.DisplayGridPositions();
+
+                Result winner;
 
                 do
                 {
-                    round = manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
 
-                } while (round != Result.SymbolPlaced);
-                    
-                currentPlayer = manager.nextPlayer(currentPlayer);
+                    Result round;
 
-                manager.DisplayRoundGrid();
+                    do
+                    {
+                        round = manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
 
-                winner = manager.determineWinner();
+                    } while (round != Result.SymbolPlaced);
 
-            } while (winner == Result.SymbolPlaced);
+                    currentPlayer = manager.nextPlayer(currentPlayer);
 
-            Console.WriteLine($"{winner}");
+                    manager.DisplayRoundGrid();
+
+                    winner = manager.determineWinner();
+
+                } while (winner == Result.SymbolPlaced);
+
+                ConsoleIO.DisplayEndOfGameResult(winner);
+
+            } while (ConsoleIO.PlayAgain());
         }
     }
 }

@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.UI.Implementations;
+using TicTacToe.UI.Interfaces;
 
 namespace TicTacToe.UI
 {
     public class GameManager
     {
         private string[] board = new string[9];
+
+        public IPlayer _player1 { get; private set; }
+        public IPlayer _player2 { get; private set; }
+
+        public GameManager(IPlayer p1, IPlayer p2)
+        {
+            _player1 = p1;
+            _player2 = p2;
+        }
 
         private void PrepareBoard()
         {
@@ -52,15 +63,15 @@ namespace TicTacToe.UI
             Console.WriteLine($" {board[6]} | {board[7]} | {board[8]}");
         }
 
-        public PlayerSymbols nextPlayer(PlayerSymbols currentPlayer)
+        public IPlayer nextPlayer(IPlayer currentPlayer)
         {
-            if(currentPlayer == PlayerSymbols.X)
+            if(currentPlayer == _player1)
             {
-                return PlayerSymbols.O;
+                return _player2;
             }
             else
             {
-                return PlayerSymbols.X;
+                return _player1;
             }
         }
 

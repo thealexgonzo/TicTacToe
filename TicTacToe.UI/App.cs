@@ -15,14 +15,14 @@ namespace TicTacToe.UI
             {
                 Console.Clear();
 
-                GameManager manager = new GameManager();
-
                 Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
-                IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 ({PlayerSymbols.X}) - Human or Computer? (H/C): ");
+                IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 (X) - Human or Computer? (H/C): ");
                 player1.symbol = PlayerSymbols.X;
-                IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 ({PlayerSymbols.O}) - Human or Computer? (H/C): ");
+                IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 (O) - Human or Computer? (H/C): ");
                 player2.symbol = PlayerSymbols.O;
+
+                GameManager manager = new GameManager(player1, player2);
 
                 IPlayer currentPlayer;
 
@@ -50,7 +50,7 @@ namespace TicTacToe.UI
 
                     } while (round != Result.SymbolPlaced);
 
-                    currentPlayer.symbol = manager.nextPlayer(currentPlayer.symbol);
+                    currentPlayer = manager.nextPlayer(currentPlayer);
 
                     manager.DisplayRoundGrid();
 

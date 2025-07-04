@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.UI
 {
-    public enum Result
+    public enum PlayerSymbols
     {
-        SymbolPlaced,
-        XWins,
-        OWins,
-        Draw,
-        InvalidOverlap,
-        InvalidOffGrid
+        X,
+        O
     }
 }

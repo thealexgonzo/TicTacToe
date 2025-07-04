@@ -9,7 +9,7 @@ namespace TicTacToe.UI
     public static class ConsoleIO
     {
 
-        public static int GetPlayerChoice(string symbol)
+        public static int GetPlayerChoice(PlayerSymbols symbol)
         {
             int choice = 0;
 
@@ -28,7 +28,7 @@ namespace TicTacToe.UI
             } while (true);
         }
 
-        public static int FirstPlayer()
+        public static PlayerSymbols FirstPlayer()
         {
             Random _random = new Random();
 
@@ -36,14 +36,14 @@ namespace TicTacToe.UI
 
             if (firstPlayer == 1)
             {
-                Console.WriteLine("\n\nX will go first!");
+                Console.WriteLine($"\n\n{PlayerSymbols.X} will go first!");
+                return PlayerSymbols.X;
             }
-            else if (firstPlayer == 2)
+            else
             {
-                Console.WriteLine("\n\nO will go first!");
+                Console.WriteLine($"\n\n{PlayerSymbols.O} will go first!");
+                return PlayerSymbols.O;
             }
-
-            return firstPlayer;
         }
 
         public static void DisplayGridPositions()

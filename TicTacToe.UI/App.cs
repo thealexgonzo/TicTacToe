@@ -11,18 +11,26 @@ namespace TicTacToe.UI
     {
         public static void Run()
         {
+            GameManager manager = new GameManager();
+
             Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
-            IPlayer player1 = PlayerFactory.GetPlayerType("\nPlayer 1 (X) - Human or Computer? (H/C): ");
-            IPlayer player2 = PlayerFactory.GetPlayerType("\nPlayer 2 (O) - Human or Computer? (H/C): ");
+            IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 ({PlayerSymbols.X}) - Human or Computer? (H/C): ");
+            IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 ({PlayerSymbols.O}) - Human or Computer? (H/C): ");
 
-            int firstPlayer = ConsoleIO.FirstPlayer();
-
-
-
+            PlayerSymbols currentPlayer = ConsoleIO.FirstPlayer();
+            
             ConsoleIO.DisplayGridPositions();
 
+            do
+            {
+                manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
 
+                currentPlayer = manager.nextPlayer(currentPlayer);
+                
+                manager.DisplayRoundGrid();
+
+            } while (true);
         }
     }
 }

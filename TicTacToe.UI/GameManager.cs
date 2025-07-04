@@ -22,10 +22,12 @@ namespace TicTacToe.UI
 
             if (board[position - 1] != " ")
             {
+                Console.WriteLine("You can't place your symbol on a non-empty space.");
                 return Result.InvalidOverlap;
             }
             else if (position < 1 || position > 9)
             {
+                Console.WriteLine("That position is off the grid, please choose an empty space between 1 and 9.");
                 return Result.InvalidOffGrid;
             }
             else

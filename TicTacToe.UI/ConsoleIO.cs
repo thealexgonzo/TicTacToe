@@ -8,22 +8,23 @@ namespace TicTacToe.UI
 {
     public static class ConsoleIO
     {
-
         public static int GetPlayerChoice(PlayerSymbols symbol)
         {
-            int choice = 0;
+            int playerChoice = 0;
 
             do
             {
-                Console.WriteLine($"{symbol}, choose a position: ");
-
-                if (int.TryParse(Console.ReadLine(), out choice) && choice > 0 && choice <= 9)
+                Console.Write($"\n{symbol}, choose a position: ");
+                if(int.TryParse(Console.ReadLine(), out playerChoice)) 
                 {
-                    return choice;
-                }
-                else
-                {
-                    Console.WriteLine("\nPlease choose a valid position between 1 and 9.");
+                    if (playerChoice >= 1 && playerChoice <= 9)
+                    {
+                        return playerChoice;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nPlease choose a valid position between 1 and 9.");
+                    }
                 }
             } while (true);
         }

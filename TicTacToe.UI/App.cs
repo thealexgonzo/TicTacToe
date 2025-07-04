@@ -24,10 +24,17 @@ namespace TicTacToe.UI
 
             do
             {
-                manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
 
+                Result round;
+
+                do
+                {
+                    round = manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
+
+                } while (round != Result.SymbolPlaced);
+                    
                 currentPlayer = manager.nextPlayer(currentPlayer);
-                
+
                 manager.DisplayRoundGrid();
 
             } while (true);

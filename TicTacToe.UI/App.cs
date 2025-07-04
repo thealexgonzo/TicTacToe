@@ -12,49 +12,45 @@ namespace TicTacToe.UI
     {
         public static void Run()
         {
-           // do
-            //{
-                Console.Clear();
+            // Game setup
+            Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
-                Console.WriteLine("Welcome to Tic-Tac-Toe!");
+            IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 (X) - Human or Computer? (H/C): ");
+            IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 (O) - Human or Computer? (H/C): ");
 
-                IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 (X) - Human or Computer? (H/C): ");
-                IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 (O) - Human or Computer? (H/C): ");
+            GameManager manager = new GameManager(player1, player2);
 
-                GameManager manager = new GameManager(player1, player2);
+            IPlayer firstPlayer = manager.FirstPlayer();
+            IPlayer currentPlayer = manager.nextPlayer(firstPlayer);
 
-                IPlayer firstPlayer = manager.FirstPlayer();
+            ConsoleIO.DisplayGridPositions();
 
-                ConsoleIO.DisplayGridPositions();
+            // First player moves
+            manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
+            manager.DisplayRoundGrid();
+    
+            Result winner;
 
-                manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
-                manager.DisplayRoundGrid();
-
-                IPlayer currentPlayer = manager.nextPlayer(firstPlayer);
-                
-                Result winner;
+            // The game continues with the next players' move
+            do
+            {
+                Result round;
 
                 do
                 {
-                    Result round;
+                    round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol, currentPlayer);
 
-                    do
-                    {
-                        round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol, currentPlayer);
+                } while (round != Result.SymbolPlaced);
 
-                    } while (round != Result.SymbolPlaced);
-
-                    manager.DisplayRoundGrid();
+                manager.DisplayRoundGrid();
                     
-                    currentPlayer = manager.nextPlayer(currentPlayer);
+                currentPlayer = manager.nextPlayer(currentPlayer);
 
-                    winner = manager.determineWinner();
+                winner = manager.determineWinner();
 
-                } while (winner == Result.SymbolPlaced);
+            } while (winner == Result.Playing);
 
-                ConsoleIO.DisplayEndOfGameResult(winner);
-
-            //} while (ConsoleIO.PlayAgain());
+            ConsoleIO.DisplayEndOfGameResult(winner);
         }
     }
 }

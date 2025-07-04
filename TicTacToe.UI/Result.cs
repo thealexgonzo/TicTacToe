@@ -13,6 +13,7 @@ namespace TicTacToe.UI
         OWins,
         Draw,
         InvalidOverlap,
-        InvalidOffGrid
+        InvalidOffGrid,
+        Playing
     }
 }

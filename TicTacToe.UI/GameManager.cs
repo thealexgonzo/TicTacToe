@@ -23,6 +23,7 @@ namespace TicTacToe.UI
             _player1.symbol = PlayerSymbols.X;
             _player2.symbol = PlayerSymbols.O;
 
+            // Setup board formatting
             for (int i = 0; i < board.Length; i++)
             {
                 if (board[i] == null)
@@ -130,7 +131,7 @@ namespace TicTacToe.UI
                 return Result.Draw;
             }
 
-            return Result.SymbolPlaced;
+            return Result.Playing;
         }
     }
 }

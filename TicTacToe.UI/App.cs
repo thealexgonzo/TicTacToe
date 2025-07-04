@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.UI.Interfaces;
@@ -46,7 +47,7 @@ namespace TicTacToe.UI
 
                     do
                     {
-                        round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol);
+                        round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol, currentPlayer);
 
                     } while (round != Result.SymbolPlaced);
 

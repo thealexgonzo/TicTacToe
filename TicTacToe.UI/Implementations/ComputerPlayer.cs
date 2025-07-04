@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicTacToe.UI.Interfaces;
+using TicTacToe.UI;
 
 namespace TicTacToe.UI.Implementations
 {
     public class ComputerPlayer : IPlayer
     {
         private Random _random = new Random();
-        public PlayerSymbols symbol { get; set; }
 
+        public PlayerSymbols symbol { get; set; }
+        public char playerTypeFlag { get { return 'C'; } }
         public int PlayerChoice()
         {
             return _random.Next(1, 10);

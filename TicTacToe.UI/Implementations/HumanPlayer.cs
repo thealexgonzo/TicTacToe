@@ -11,6 +11,7 @@ namespace TicTacToe.UI.Implementations
     public class HumanPlayer : IPlayer
     {
         public PlayerSymbols symbol { get; set; }
+        public char playerTypeFlag { get { return 'H'; } }
 
         public int PlayerChoice()
         {

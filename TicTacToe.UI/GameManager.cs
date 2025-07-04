@@ -10,7 +10,7 @@ namespace TicTacToe.UI
 {
     public class GameManager
     {
-        private string[] board = new string[9];
+        public static string[] board { get; private set; } = new string[9];
 
         public IPlayer _player1 { get; private set; }
         public IPlayer _player2 { get; private set; }
@@ -32,7 +32,7 @@ namespace TicTacToe.UI
             }
         }
 
-        public Result PlaceSymbol(int position, PlayerSymbols playerSymbol)
+        public Result PlaceSymbol(int position, PlayerSymbols playerSymbol, IPlayer currentPlayer)
         {
             PrepareBoard();
 
@@ -43,12 +43,22 @@ namespace TicTacToe.UI
             }
             else if (board[position - 1] != " ")
             {
-                Console.WriteLine("You can't place your symbol on a non-empty space.");
+                if(currentPlayer.playerTypeFlag == 'H')
+                {
+                    Console.WriteLine("You can't place your symbol on a non-empty space.");
+                }
+
                 return Result.InvalidOverlap;
             }
             else
             {
                 board[position - 1] = playerSymbol.ToString();
+                
+                if(currentPlayer.playerTypeFlag == 'C')
+                {
+                    Console.Write($"\n{playerSymbol} chooses {position}.");
+                }
+
                 return Result.SymbolPlaced;
             }
         }

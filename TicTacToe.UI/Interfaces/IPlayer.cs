@@ -8,6 +8,7 @@ namespace TicTacToe.UI.Interfaces
 {
     public interface IPlayer
     {
+        PlayerSymbols symbol { get; set; }
         int PlayerChoice();
     }
 }

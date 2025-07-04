@@ -20,9 +20,20 @@ namespace TicTacToe.UI
                 Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
                 IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 ({PlayerSymbols.X}) - Human or Computer? (H/C): ");
+                player1.symbol = PlayerSymbols.X;
                 IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 ({PlayerSymbols.O}) - Human or Computer? (H/C): ");
+                player2.symbol = PlayerSymbols.O;
 
-                PlayerSymbols currentPlayer = ConsoleIO.FirstPlayer();
+                IPlayer currentPlayer;
+
+                if(ConsoleIO.FirstPlayer() == PlayerSymbols.X)
+                {
+                    currentPlayer = player1;
+                }
+                else
+                {
+                    currentPlayer = player2;
+                }
 
                 ConsoleIO.DisplayGridPositions();
 
@@ -35,11 +46,11 @@ namespace TicTacToe.UI
 
                     do
                     {
-                        round = manager.PlaceSymbol(ConsoleIO.GetPlayerChoice(currentPlayer), currentPlayer);
+                        round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol);
 
                     } while (round != Result.SymbolPlaced);
 
-                    currentPlayer = manager.nextPlayer(currentPlayer);
+                    currentPlayer.symbol = manager.nextPlayer(currentPlayer.symbol);
 
                     manager.DisplayRoundGrid();
 

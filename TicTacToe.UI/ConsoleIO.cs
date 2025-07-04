@@ -26,24 +26,6 @@ namespace TicTacToe.UI
             } while (true);
         }
 
-        public static PlayerSymbols FirstPlayer()
-        {
-            Random _random = new Random();
-
-            int firstPlayer = _random.Next(1, 3);
-
-            if (firstPlayer == 1)
-            {
-                Console.WriteLine($"\n\n{PlayerSymbols.X} will go first!");
-                return PlayerSymbols.X;
-            }
-            else
-            {
-                Console.WriteLine($"\n\n{PlayerSymbols.O} will go first!");
-                return PlayerSymbols.O;
-            }
-        }
-
         public static void DisplayGridPositions()
         {
             Console.WriteLine("\nHere are the positions of the grid: \n");

@@ -19,10 +19,10 @@ namespace TicTacToe.UI
         {
             _player1 = p1;
             _player2 = p2;
-        }
 
-        private void PrepareBoard()
-        {
+            _player1.symbol = PlayerSymbols.X;
+            _player2.symbol = PlayerSymbols.O;
+
             for (int i = 0; i < board.Length; i++)
             {
                 if (board[i] == null)
@@ -34,7 +34,6 @@ namespace TicTacToe.UI
 
         public Result PlaceSymbol(int position, PlayerSymbols playerSymbol, IPlayer currentPlayer)
         {
-            PrepareBoard();
 
             if (position < 1 || position > 9)
             {
@@ -71,6 +70,23 @@ namespace TicTacToe.UI
             Console.WriteLine($" {board[3]} | {board[4]} | {board[5]}");
             Console.WriteLine($"---+---+---");
             Console.WriteLine($" {board[6]} | {board[7]} | {board[8]}");
+        }
+        public IPlayer FirstPlayer()
+        {
+            Random _random = new Random();
+
+            int firstPlayer = _random.Next(1, 3);
+
+            if (firstPlayer == 1)
+            {
+                Console.WriteLine($"\n\n{PlayerSymbols.X} will go first!");
+                return _player1;
+            }
+            else
+            {
+                Console.WriteLine($"\n\n{PlayerSymbols.O} will go first!");
+                return _player2;
+            }
         }
 
         public IPlayer nextPlayer(IPlayer currentPlayer)

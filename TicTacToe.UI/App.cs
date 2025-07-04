@@ -12,37 +12,30 @@ namespace TicTacToe.UI
     {
         public static void Run()
         {
-            do
-            {
+           // do
+            //{
                 Console.Clear();
 
                 Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
                 IPlayer player1 = PlayerFactory.GetPlayerType($"\nPlayer 1 (X) - Human or Computer? (H/C): ");
-                player1.symbol = PlayerSymbols.X;
                 IPlayer player2 = PlayerFactory.GetPlayerType($"\nPlayer 2 (O) - Human or Computer? (H/C): ");
-                player2.symbol = PlayerSymbols.O;
 
                 GameManager manager = new GameManager(player1, player2);
 
-                IPlayer currentPlayer;
-
-                if(ConsoleIO.FirstPlayer() == PlayerSymbols.X)
-                {
-                    currentPlayer = player1;
-                }
-                else
-                {
-                    currentPlayer = player2;
-                }
+                IPlayer firstPlayer = manager.FirstPlayer();
 
                 ConsoleIO.DisplayGridPositions();
 
+                manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
+                manager.DisplayRoundGrid();
+
+                IPlayer currentPlayer = manager.nextPlayer(firstPlayer);
+                
                 Result winner;
 
                 do
                 {
-
                     Result round;
 
                     do
@@ -51,9 +44,9 @@ namespace TicTacToe.UI
 
                     } while (round != Result.SymbolPlaced);
 
-                    currentPlayer = manager.nextPlayer(currentPlayer);
-
                     manager.DisplayRoundGrid();
+                    
+                    currentPlayer = manager.nextPlayer(currentPlayer);
 
                     winner = manager.determineWinner();
 
@@ -61,7 +54,7 @@ namespace TicTacToe.UI
 
                 ConsoleIO.DisplayEndOfGameResult(winner);
 
-            } while (ConsoleIO.PlayAgain());
+            //} while (ConsoleIO.PlayAgain());
         }
     }
 }

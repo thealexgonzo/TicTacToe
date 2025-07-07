@@ -12,10 +12,10 @@ namespace TicTacToe.UI
     {
         public static void Run()
         {
-            //do
-            //{
+            do
+            {
                 // Game setup
-                //Console.Clear();
+                Console.Clear();
 
                 Console.WriteLine("Welcome to Tic-Tac-Toe!");
 
@@ -56,7 +56,7 @@ namespace TicTacToe.UI
 
                 ConsoleIO.DisplayEndOfGameResult(winner);
 
-            //} while (ConsoleIO.PlayAgain());
+            } while (ConsoleIO.PlayAgain());
         }
     }
 }

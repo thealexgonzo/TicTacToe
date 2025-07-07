@@ -63,6 +63,11 @@ namespace TicTacToe.UI
 
                 if (choice == "yes")
                 {
+                    for (int i = 0; i < GameManager.Board.Length; i++)
+                    {
+                        GameManager.Board[i] = null;
+                    }
+
                     return true;
                 }
                 else if (choice == "no")

@@ -43,7 +43,7 @@ namespace TicTacToe.UI
             }
             else if (Board[position - 1] != " ")
             {
-                if(currentPlayer.playerTypeFlag == 'H')
+                if(currentPlayer.IsHumanPlayer)
                 {
                     Console.WriteLine("You can't place your symbol on a non-empty space.");
                 }
@@ -53,7 +53,7 @@ namespace TicTacToe.UI
             {
                 Board[position - 1] = playerSymbol.ToString();
                 
-                if(currentPlayer.playerTypeFlag == 'C')
+                if(currentPlayer.IsHumanPlayer)
                 {
                     Console.Write($"\n{playerSymbol} chooses {position}.");
                 }

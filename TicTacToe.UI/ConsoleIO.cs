@@ -63,6 +63,7 @@ namespace TicTacToe.UI
 
                 if (choice == "yes")
                 {
+                    //Clear the board before starting a new game
                     for (int i = 0; i < GameManager.Board.Length; i++)
                     {
                         GameManager.Board[i] = null;

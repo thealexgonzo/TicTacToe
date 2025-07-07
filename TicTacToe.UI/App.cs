@@ -33,7 +33,7 @@ namespace TicTacToe.UI
                 manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
                 manager.DisplayRoundGrid();
 
-                Result winner;
+                Result gameScore;
 
                 // The game continues with the next players' move
                 do
@@ -50,11 +50,11 @@ namespace TicTacToe.UI
 
                     currentPlayer = manager.nextPlayer(currentPlayer);
 
-                    winner = manager.determineWinner();
+                    gameScore = manager.determineResult();
 
-                } while (winner == Result.Playing);
+                } while (gameScore == Result.Playing);
 
-                ConsoleIO.DisplayEndOfGameResult(winner);
+                ConsoleIO.DisplayEndOfGameResult(gameScore);
 
             } while (ConsoleIO.PlayAgain());
         }

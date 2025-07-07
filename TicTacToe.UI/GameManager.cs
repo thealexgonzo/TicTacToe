@@ -101,7 +101,7 @@ namespace TicTacToe.UI
             }
         }
 
-        public Result determineWinner()
+        public Result determineResult()
         {
             if ((Board[0] == "X" && Board[1] == "X" && Board[2] == "X") ||
                 (Board[3] == "X" && Board[4] == "X" && Board[5] == "X") ||
@@ -125,7 +125,7 @@ namespace TicTacToe.UI
             {
                 return Result.OWins;
             }
-            else if(!Board.Contains(" "))
+            else if(!Board.Contains(" ") && !Board.Contains(null))
             {
                 return Result.Draw;
             }

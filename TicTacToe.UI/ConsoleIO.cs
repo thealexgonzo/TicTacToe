@@ -36,19 +36,19 @@ namespace TicTacToe.UI
             Console.WriteLine(" 7 | 8 | 9");
         }
 
-        public static void DisplayEndOfGameResult(Result gameState)
+        public static void DisplayEndOfGameResult(Result gameResult)
         {
             Console.WriteLine("\n");
 
-            if(gameState == Result.XWins)
+            if(gameResult == Result.XWins)
             {
                 Console.WriteLine("X wins!");
             }
-            else if(gameState == Result.OWins)
+            else if(gameResult == Result.OWins)
             {
                 Console.WriteLine("O wins!");
             }
-            else if(gameState == Result.Draw)
+            else if(gameResult == Result.Draw)
             {
                 Console.WriteLine("It's a draw.");
             }

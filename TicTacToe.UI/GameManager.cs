@@ -10,7 +10,7 @@ namespace TicTacToe.UI
 {
     public class GameManager
     {
-        public static string[] board { get; private set; } = new string[9];
+        public static string[] Board { get; private set; } = new string[9];
 
         public IPlayer _player1 { get; private set; }
         public IPlayer _player2 { get; private set; }
@@ -23,12 +23,12 @@ namespace TicTacToe.UI
             _player1.symbol = PlayerSymbols.X;
             _player2.symbol = PlayerSymbols.O;
 
-            // Setup board formatting
-            for (int i = 0; i < board.Length; i++)
+            // Setup Board display formatting
+            for (int i = 0; i < Board.Length; i++)
             {
-                if (board[i] == null)
+                if (Board[i] == null)
                 {
-                    board[i] = " ";
+                    Board[i] = " ";
                 }
             }
         }
@@ -41,18 +41,17 @@ namespace TicTacToe.UI
                 Console.WriteLine("That position is off the grid, please choose an empty space between 1 and 9.");
                 return Result.InvalidOffGrid;
             }
-            else if (board[position - 1] != " ")
+            else if (Board[position - 1] != " ")
             {
                 if(currentPlayer.playerTypeFlag == 'H')
                 {
                     Console.WriteLine("You can't place your symbol on a non-empty space.");
                 }
-
                 return Result.InvalidOverlap;
             }
             else
             {
-                board[position - 1] = playerSymbol.ToString();
+                Board[position - 1] = playerSymbol.ToString();
                 
                 if(currentPlayer.playerTypeFlag == 'C')
                 {
@@ -66,11 +65,11 @@ namespace TicTacToe.UI
         public void DisplayRoundGrid()
         { 
             Console.WriteLine("\n");
-            Console.WriteLine($" {board[0]} | {board[1]} | {board[2]}");
+            Console.WriteLine($" {Board[0]} | {Board[1]} | {Board[2]}");
             Console.WriteLine($"---+---+---");
-            Console.WriteLine($" {board[3]} | {board[4]} | {board[5]}");
+            Console.WriteLine($" {Board[3]} | {Board[4]} | {Board[5]}");
             Console.WriteLine($"---+---+---");
-            Console.WriteLine($" {board[6]} | {board[7]} | {board[8]}");
+            Console.WriteLine($" {Board[6]} | {Board[7]} | {Board[8]}");
         }
         public IPlayer FirstPlayer()
         {
@@ -104,29 +103,29 @@ namespace TicTacToe.UI
 
         public Result determineWinner()
         {
-            if ((board[0] == "X" && board[1] == "X" && board[2] == "X") ||
-                (board[3] == "X" && board[4] == "X" && board[5] == "X") ||
-                (board[6] == "X" && board[7] == "X" && board[8] == "X") ||
-                (board[0] == "X" && board[4] == "X" && board[8] == "X") ||
-                (board[2] == "X" && board[4] == "X" && board[6] == "X") ||
-                (board[0] == "X" && board[3] == "X" && board[6] == "X") ||
-                (board[1] == "X" && board[4] == "X" && board[7] == "X") ||
-                (board[2] == "X" && board[5] == "X" && board[8] == "X")) 
+            if ((Board[0] == "X" && Board[1] == "X" && Board[2] == "X") ||
+                (Board[3] == "X" && Board[4] == "X" && Board[5] == "X") ||
+                (Board[6] == "X" && Board[7] == "X" && Board[8] == "X") ||
+                (Board[0] == "X" && Board[4] == "X" && Board[8] == "X") ||
+                (Board[2] == "X" && Board[4] == "X" && Board[6] == "X") ||
+                (Board[0] == "X" && Board[3] == "X" && Board[6] == "X") ||
+                (Board[1] == "X" && Board[4] == "X" && Board[7] == "X") ||
+                (Board[2] == "X" && Board[5] == "X" && Board[8] == "X")) 
             {
                 return Result.XWins;
             }
-            else if((board[0] == "O" && board[1] == "O" && board[2] == "O") ||
-                (board[3] == "O" && board[4] == "O" && board[5] == "O") ||
-                (board[6] == "O" && board[7] == "O" && board[8] == "O") ||
-                (board[0] == "O" && board[4] == "O" && board[8] == "O") ||
-                (board[2] == "O" && board[4] == "O" && board[6] == "O") ||
-                (board[0] == "O" && board[3] == "O" && board[6] == "O") ||
-                (board[1] == "O" && board[4] == "O" && board[7] == "O") ||
-                (board[2] == "O" && board[5] == "O" && board[8] == "O"))
+            else if((Board[0] == "O" && Board[1] == "O" && Board[2] == "O") ||
+                (Board[3] == "O" && Board[4] == "O" && Board[5] == "O") ||
+                (Board[6] == "O" && Board[7] == "O" && Board[8] == "O") ||
+                (Board[0] == "O" && Board[4] == "O" && Board[8] == "O") ||
+                (Board[2] == "O" && Board[4] == "O" && Board[6] == "O") ||
+                (Board[0] == "O" && Board[3] == "O" && Board[6] == "O") ||
+                (Board[1] == "O" && Board[4] == "O" && Board[7] == "O") ||
+                (Board[2] == "O" && Board[5] == "O" && Board[8] == "O"))
             {
                 return Result.OWins;
             }
-            else if(!board.Contains(" "))
+            else if(!Board.Contains(" "))
             {
                 return Result.Draw;
             }

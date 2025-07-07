@@ -35,7 +35,6 @@ namespace TicTacToe.UI
 
         public Result PlaceSymbol(int position, PlayerSymbols playerSymbol, IPlayer currentPlayer)
         {
-
             if (position < 1 || position > 9)
             {
                 Console.WriteLine("That position is off the grid, please choose an empty space between 1 and 9.");
@@ -43,22 +42,26 @@ namespace TicTacToe.UI
             }
             else if (Board[position - 1] != " ")
             {
-                if(currentPlayer.IsHumanPlayer)
+                if (currentPlayer.IsHumanPlayer)
                 {
                     Console.WriteLine("You can't place your symbol on a non-empty space.");
                 }
                 return Result.InvalidOverlap;
             }
-            else
+            else if (position >= 1 && position <= 9)
             {
                 Board[position - 1] = playerSymbol.ToString();
-                
-                if(currentPlayer.IsHumanPlayer)
+
+                if (!currentPlayer.IsHumanPlayer)
                 {
                     Console.Write($"\n{playerSymbol} chooses {position}.");
                 }
 
                 return Result.SymbolPlaced;
+            }
+            else
+            {
+                return Result.Playing;
             }
         }
 

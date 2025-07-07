@@ -30,7 +30,12 @@ namespace TicTacToe.UI
                 ConsoleIO.DisplayGridPositions();
 
                 // First player moves
-                manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
+                Result firstChoice;
+                do
+                {
+                    firstChoice = manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
+                } while (firstChoice != Result.SymbolPlaced);
+                
                 manager.DisplayRoundGrid();
 
                 Result gameScore;

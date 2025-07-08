@@ -55,7 +55,7 @@ namespace TicTacToe.UI
 
                     currentPlayer = manager.nextPlayer(currentPlayer);
 
-                    gameScore = manager.determineResult();
+                    gameScore = (Result)manager.determineResult();
 
                 } while (gameScore == Result.Playing);
 

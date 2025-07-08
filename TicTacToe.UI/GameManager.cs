@@ -17,11 +17,15 @@ namespace TicTacToe.UI
 
         public GameManager(IPlayer p1, IPlayer p2)
         {
+            // Setup the players
             _player1 = p1;
             _player2 = p2;
 
             _player1.symbol = PlayerSymbols.X;
             _player2.symbol = PlayerSymbols.O;
+
+            _player1.IsMaximising = true;
+            _player2.IsMaximising = false;
 
             // Setup Board display formatting
             for (int i = 0; i < Board.Length; i++)
@@ -104,36 +108,40 @@ namespace TicTacToe.UI
             }
         }
 
-        public Result determineResult()
+        public int determineResult()
         {
-            if ((Board[0] == "X" && Board[1] == "X" && Board[2] == "X") ||
-                (Board[3] == "X" && Board[4] == "X" && Board[5] == "X") ||
-                (Board[6] == "X" && Board[7] == "X" && Board[8] == "X") ||
-                (Board[0] == "X" && Board[4] == "X" && Board[8] == "X") ||
-                (Board[2] == "X" && Board[4] == "X" && Board[6] == "X") ||
-                (Board[0] == "X" && Board[3] == "X" && Board[6] == "X") ||
-                (Board[1] == "X" && Board[4] == "X" && Board[7] == "X") ||
-                (Board[2] == "X" && Board[5] == "X" && Board[8] == "X")) 
+            string[,] winConditions = new string[,]
+{
+                // This is a 2D array, each {...} is a row and each valule in a row is a column.
+                { Board[0], Board[1], Board[2] },
+                { Board[3], Board[4], Board[5] },
+                { Board[6], Board[7], Board[8] },
+                { Board[0], Board[3], Board[6] },
+                { Board[1], Board[4], Board[7] },
+                { Board[2], Board[5], Board[8] },
+                { Board[0], Board[4], Board[8] },
+                { Board[2], Board[4], Board[6] }
+};
+
+            for (int i = 0; i < 8; i++)
             {
-                return Result.XWins;
-            }
-            else if((Board[0] == "O" && Board[1] == "O" && Board[2] == "O") ||
-                (Board[3] == "O" && Board[4] == "O" && Board[5] == "O") ||
-                (Board[6] == "O" && Board[7] == "O" && Board[8] == "O") ||
-                (Board[0] == "O" && Board[4] == "O" && Board[8] == "O") ||
-                (Board[2] == "O" && Board[4] == "O" && Board[6] == "O") ||
-                (Board[0] == "O" && Board[3] == "O" && Board[6] == "O") ||
-                (Board[1] == "O" && Board[4] == "O" && Board[7] == "O") ||
-                (Board[2] == "O" && Board[5] == "O" && Board[8] == "O"))
-            {
-                return Result.OWins;
-            }
-            else if(!Board.Contains(" ") && !Board.Contains(null))
-            {
-                return Result.Draw;
+                // Check that all values in the row are equal - X or O
+                if (winConditions[i, 0] != " " &&
+                    winConditions[i, 0] == winConditions[i, 1] &&
+                    winConditions[i, 1] == winConditions[i, 2])
+                {
+                    if(winConditions[i, 0] == PlayerSymbols.X.ToString())
+                    {
+                        return (int)Result.XWins;
+                    }
+                    else
+                    {
+                        return (int)Result.OWins;
+                    }
+                }
             }
 
-            return Result.Playing;
+            return (int)Result.Playing;
         }
     }
 }

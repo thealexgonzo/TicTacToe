@@ -9,11 +9,11 @@ namespace TicTacToe.UI
     public enum Result
     {
         SymbolPlaced,
-        XWins,
-        OWins,
-        Draw,
+        XWins = 1,
+        OWins = -1,
+        Draw = 0,
         InvalidOverlap,
         InvalidOffGrid,
-        Playing
+        Playing = -10
     }
 }

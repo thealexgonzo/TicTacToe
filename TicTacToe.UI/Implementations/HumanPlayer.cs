@@ -12,9 +12,10 @@ namespace TicTacToe.UI.Implementations
     {
         public PlayerSymbols symbol { get; set; }
         public bool IsHumanPlayer { get { return true; } }
+        public bool IsMaximising { get; set; }
         public int PlayerChoice()
         {
-            return ConsoleIO.GetPlayerChoice(symbol);
+            return ConsoleIO.GetHumanPlayerChoice(symbol);
         }
     }
 }

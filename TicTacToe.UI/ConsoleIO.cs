@@ -8,7 +8,7 @@ namespace TicTacToe.UI
 {
     public static class ConsoleIO
     {
-        public static int GetPlayerChoice(PlayerSymbols symbol)
+        public static int GetHumanPlayerChoice(PlayerSymbols symbol)
         {
             int playerChoice = 0;
 

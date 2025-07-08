@@ -36,7 +36,7 @@ namespace TicTacToe.UI
                     firstChoice = manager.PlaceSymbol(firstPlayer.PlayerChoice(), firstPlayer.symbol, firstPlayer);
                 } while (firstChoice != Result.SymbolPlaced);
                 
-                manager.DisplayRoundGrid();
+                ConsoleIO.DisplayGameBoard(GameManager.Board);
 
                 Result gameScore;
 
@@ -51,7 +51,7 @@ namespace TicTacToe.UI
 
                     } while (round != Result.SymbolPlaced);
 
-                    manager.DisplayRoundGrid();
+                    ConsoleIO.DisplayGameBoard(GameManager.Board);
 
                     currentPlayer = manager.nextPlayer(currentPlayer);
 

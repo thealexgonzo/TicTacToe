@@ -8,49 +8,45 @@ namespace TicTacToe.UI
 {
     public static class MinMaxAlgorithm
     {
-        private static string CheckWinner(string[] board)
+        public static Result CheckSimulationWinner(string[] board)
         {
             string[,] winConditions = new string[,]
-            {
-                // This is a 2D array, each {...} is a row and each valule in a row is a column.
-                { board[0], board[1], board[2] },
-                { board[3], board[4], board[5] },
-                { board[6], board[7], board[8] },
-                { board[0], board[3], board[6] },
-                { board[1], board[4], board[7] },
-                { board[2], board[5], board[8] },
-                { board[0], board[4], board[8] },
-                { board[2], board[4], board[6] }
+            {   
+            // This is a 2D array, each {...} is a row and each valule in a row is a column.
+            { board[0], board[1], board[2] },
+            { board[3], board[4], board[5] },
+            { board[6], board[7], board[8] },
+            { board[0], board[3], board[6] },
+            { board[1], board[4], board[7] },
+            { board[2], board[5], board[8] },
+            { board[0], board[4], board[8] },
+            { board[2], board[4], board[6] }
             };
 
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 // Check that all values in the row are equal - X or O
-                if (winConditions[i,0] != " " &&
-                    winConditions[i,0] == winConditions[i,1] &&
-                    winConditions[i,1] == winConditions[i, 2])
+                if (winConditions[i, 0] != " " &&
+                    winConditions[i, 0] == winConditions[i, 1] &&
+                    winConditions[i, 1] == winConditions[i, 2])
                 {
-                    return winConditions[i, 0];
+                    return winConditions[i, 0] == PlayerSymbols.X.ToString() ? Result.XWins : Result.OWins;
                 }
             }
 
-            return null;
-        }
+            if (!board.Contains(" "))
+            {
+                return Result.Draw;
+            }
 
-        private static bool IsBoardFull(string[] board)
-        {
-            if(board.Contains(" ") || board.Contains(null)) return false;
-            
-            return true;
+            return Result.Playing;
         }
         public static int MinMax(string[] board, bool isMaximising)
         {
-
-            string winner = CheckWinner(board);
-
-            if (winner == "X") return (int)Result.XWins; // 1
-            if (winner == "O") return (int)Result.OWins; // -1
-            if (IsBoardFull(board)) return (int)Result.Draw; // 0
+            Result result = CheckSimulationWinner(board);
+            if (result == Result.XWins) return 1;
+            if (result == Result.OWins) return -1;
+            if (result == Result.Draw) return 0;
 
             if (isMaximising)
             {

@@ -25,7 +25,9 @@ namespace TicTacToe.UI
                 GameManager manager = new GameManager(player1, player2);
 
                 IPlayer firstPlayer = manager.FirstPlayer();
-                IPlayer currentPlayer = manager.nextPlayer(firstPlayer);
+                ConsoleIO.DisplayFirstPlayer(firstPlayer);
+
+                IPlayer currentPlayer = manager.NextPlayer(firstPlayer);
 
                 ConsoleIO.DisplayGridPositions();
 
@@ -39,28 +41,22 @@ namespace TicTacToe.UI
                 ConsoleIO.DisplayGameBoard(GameManager.Board);
 
                 Result gameScore;
-
                 // The game continues with the next players' move
                 do
                 {
-                    Result round;
-
+                    Result currentPlayerChoice;
                     do
                     {
-                        round = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol, currentPlayer);
-
-                    } while (round != Result.SymbolPlaced);
+                        currentPlayerChoice = manager.PlaceSymbol(currentPlayer.PlayerChoice(), currentPlayer.symbol, currentPlayer);
+                    } while (currentPlayerChoice != Result.SymbolPlaced);
 
                     ConsoleIO.DisplayGameBoard(GameManager.Board);
+                    currentPlayer = manager.NextPlayer(currentPlayer);
 
-                    currentPlayer = manager.nextPlayer(currentPlayer);
-
-                    gameScore = (Result)manager.determineResult();
-
+                    gameScore = GameManager.CheckForWinner();
                 } while (gameScore == Result.Playing);
 
                 ConsoleIO.DisplayEndOfGameResult(gameScore);
-
             } while (ConsoleIO.PlayAgain());
         }
     }

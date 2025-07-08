@@ -12,7 +12,7 @@ namespace TicTacToe.UI.Implementations
     {
         public PlayerSymbols symbol { get; set; }
         public bool IsHumanPlayer { get { return true; } }
-        public bool IsMaximising { get; set; }
+        public bool IsMaximising => symbol == PlayerSymbols.X;
         public int PlayerChoice()
         {
             return ConsoleIO.GetHumanPlayerChoice(symbol);

@@ -13,31 +13,37 @@ namespace TicTacToe.UI.Implementations
         private Random _random = new Random();
         public PlayerSymbols symbol { get; set; }
         public bool IsHumanPlayer { get { return false; } }
-        public bool IsMaximising { get; set; }
+        public bool IsMaximising => symbol == PlayerSymbols.X;
         
         private int FindBestMove(string[] board)
         {
-            int bestScore = int.MinValue;
+            int bestScore = IsMaximising ? int.MaxValue : int.MinValue;
+            //int bestMove = IsMaximising ? 1 : -1;
             int bestMove = -1;
 
-            for (int i = 0; i < board.Length; i++)
-            {
-                if (board[i] == null || board[i] == " ")
+                for (int i = 0; i < board.Length; i++)
                 {
-                    string backup = board[i];
-                    board[i] = symbol == PlayerSymbols.X ? "X" : "O";
-
-                    int score = MinMaxAlgorithm.MinMax(board, symbol != PlayerSymbols.X);
-
-                    board[i] = backup;
-
-                    if (score > bestScore)
+                    if (board[i] == " ")
                     {
-                        bestScore = score;
-                        bestMove = i;
+                        string backup = board[i];
+                        board[i] = symbol.ToString();
+
+                        int score = MinMaxAlgorithm.MinMax(board, !IsMaximising);
+
+                        board[i] = backup;
+
+                        if (IsMaximising && score > bestScore)
+                        {
+                            bestScore = score;
+                            bestMove = i;
+                        }
+                        else if(!IsMaximising && score < bestScore)
+                        {
+                            bestScore = score;
+                            bestMove = i;
+                        }
                     }
                 }
-            }
 
             // Return human readable choice (1-9), not array index (0-8)
             return bestMove + 1;

@@ -24,8 +24,8 @@ namespace TicTacToe.UI
             _player1.symbol = PlayerSymbols.X;
             _player2.symbol = PlayerSymbols.O;
 
-            _player1.IsMaximising = true;
-            _player2.IsMaximising = false;
+            //_player1.IsMaximising = true;
+            //_player2.IsMaximising = false;
 
             // Setup Board display formatting
             for (int i = 0; i < Board.Length; i++)
@@ -77,17 +77,15 @@ namespace TicTacToe.UI
 
             if (firstPlayer == 1)
             {
-                Console.WriteLine($"\n\n{PlayerSymbols.X} will go first!");
                 return _player1;
             }
             else
             {
-                Console.WriteLine($"\n\n{PlayerSymbols.O} will go first!");
                 return _player2;
             }
         }
 
-        public IPlayer nextPlayer(IPlayer currentPlayer)
+        public IPlayer NextPlayer(IPlayer currentPlayer)
         {
             if(currentPlayer == _player1)
             {
@@ -99,20 +97,20 @@ namespace TicTacToe.UI
             }
         }
 
-        public int determineResult()
+        public static Result CheckForWinner()
         {
             string[,] winConditions = new string[,]
-{
-                // This is a 2D array, each {...} is a row and each valule in a row is a column.
-                { Board[0], Board[1], Board[2] },
-                { Board[3], Board[4], Board[5] },
-                { Board[6], Board[7], Board[8] },
-                { Board[0], Board[3], Board[6] },
-                { Board[1], Board[4], Board[7] },
-                { Board[2], Board[5], Board[8] },
-                { Board[0], Board[4], Board[8] },
-                { Board[2], Board[4], Board[6] }
-};
+            {   
+            // This is a 2D array, each {...} is a row and each valule in a row is a column.
+            { Board[0], Board[1], Board[2] },
+            { Board[3], Board[4], Board[5] },
+            { Board[6], Board[7], Board[8] },
+            { Board[0], Board[3], Board[6] },
+            { Board[1], Board[4], Board[7] },
+            { Board[2], Board[5], Board[8] },
+            { Board[0], Board[4], Board[8] },
+            { Board[2], Board[4], Board[6] }
+            };
 
             for (int i = 0; i < 8; i++)
             {
@@ -121,18 +119,16 @@ namespace TicTacToe.UI
                     winConditions[i, 0] == winConditions[i, 1] &&
                     winConditions[i, 1] == winConditions[i, 2])
                 {
-                    if(winConditions[i, 0] == PlayerSymbols.X.ToString())
-                    {
-                        return (int)Result.XWins;
-                    }
-                    else
-                    {
-                        return (int)Result.OWins;
-                    }
+                    return winConditions[i, 0] == "X" ? Result.XWins : Result.OWins;
                 }
             }
 
-            return (int)Result.Playing;
+            if (!Board.Contains(" ") && !Board.Contains(null))
+            {
+                return Result.Draw;
+            }
+
+            return Result.Playing;
         }
     }
 }

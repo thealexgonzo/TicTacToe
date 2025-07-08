@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicTacToe.UI.Interfaces;
 
 namespace TicTacToe.UI
 {
@@ -24,6 +25,11 @@ namespace TicTacToe.UI
                     Console.WriteLine("Please enter a valid numeric value.");
                 }
             } while (true);
+        }
+
+        public static void DisplayFirstPlayer(IPlayer player)
+        {
+            Console.WriteLine($"\n\n{player.symbol} will go first!");
         }
 
         public static void DisplayGridPositions()

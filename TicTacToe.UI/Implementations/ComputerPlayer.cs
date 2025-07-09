@@ -13,38 +13,37 @@ namespace TicTacToe.UI.Implementations
         private Random _random = new Random();
         public PlayerSymbols symbol { get; set; }
         public bool IsHumanPlayer { get { return false; } }
-        public bool IsMaximising => symbol == PlayerSymbols.X;
-        
+        public bool IsMaxing => symbol == PlayerSymbols.X;
+
         private int FindBestMove(string[] board)
         {
-            int bestScore = IsMaximising ? int.MaxValue : int.MinValue;
-            //int bestMove = IsMaximising ? 1 : -1;
-            int bestMove = -1;
+            //int bestScore = int.MinValue;
+            int bestScore = IsMaxing ? int.MinValue : int.MaxValue;
+            int bestMove = IsMaxing ? 1 : -1;
 
-                for (int i = 0; i < board.Length; i++)
+            for (int i = 0; i < board.Length; i++)
+            {
+                if (board[i] == " ")
                 {
-                    if (board[i] == " ")
+                    string backup = board[i];
+                    board[i] = symbol.ToString();
+
+                    int score = MinMaxAlgorithm.MinMax(board, !IsMaxing);
+
+                    board[i] = backup;
+
+                    if (IsMaxing && score > bestScore)
                     {
-                        string backup = board[i];
-                        board[i] = symbol.ToString();
-
-                        int score = MinMaxAlgorithm.MinMax(board, !IsMaximising);
-
-                        board[i] = backup;
-
-                        if (IsMaximising && score > bestScore)
-                        {
-                            bestScore = score;
-                            bestMove = i;
-                        }
-                        else if(!IsMaximising && score < bestScore)
-                        {
-                            bestScore = score;
-                            bestMove = i;
-                        }
+                        bestScore = score;
+                        bestMove = i;
+                    }
+                    else if(!IsMaxing && score < bestScore)
+                    {
+                        bestScore = score;
+                        bestMove = i;
                     }
                 }
-
+            }
             // Return human readable choice (1-9), not array index (0-8)
             return bestMove + 1;
         }

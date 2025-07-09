@@ -10,7 +10,7 @@ namespace TicTacToe.UI.Interfaces
     {
         PlayerSymbols symbol { get; set; }      
         bool IsHumanPlayer { get; }
-        bool IsMaximising { get; }
+        bool IsMaxing { get; }
         int PlayerChoice();
     }
 }

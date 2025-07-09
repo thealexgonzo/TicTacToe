@@ -24,8 +24,8 @@ namespace TicTacToe.UI
             _player1.symbol = PlayerSymbols.X;
             _player2.symbol = PlayerSymbols.O;
 
-            //_player1.IsMaximising = true;
-            //_player2.IsMaximising = false;
+            //_player1.IsMaxing = true;
+            //_player2.IsMaxing = false;
 
             // Setup Board display formatting
             for (int i = 0; i < Board.Length; i++)

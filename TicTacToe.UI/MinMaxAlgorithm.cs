@@ -41,14 +41,14 @@ namespace TicTacToe.UI
 
             return Result.Playing;
         }
-        public static int MinMax(string[] board, bool isMaximising)
+        public static int MinMax(string[] board, bool IsMaxing)
         {
             Result result = CheckSimulationWinner(board);
             if (result == Result.XWins) return 1;
             if (result == Result.OWins) return -1;
             if (result == Result.Draw) return 0;
 
-            if (isMaximising)
+            if (IsMaxing)
             {
                 int bestScore = int.MinValue;
 
